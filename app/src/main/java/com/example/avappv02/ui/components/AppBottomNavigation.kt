@@ -109,7 +109,7 @@ fun AppBottomNavigation(
                             tint = if (selected)
                                 MaterialTheme.colorScheme.primary
                             else
-                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                                MaterialTheme.colorScheme.onSurfaceVariant
                         )
 
                         AnimatedVisibility(

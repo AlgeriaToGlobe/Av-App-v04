@@ -57,6 +57,11 @@ fun AppNavHost(
                 HomeScreen(
                     onCategoryClick = { catId ->
                         navController.navigate(Screen.SubCategories.createRoute(catId))
+                    },
+                    onNavigate = { route ->
+                        navController.navigate(route) {
+                            launchSingleTop = true
+                        }
                     }
                 )
             }
@@ -89,6 +94,30 @@ fun AppNavHost(
                 popExitTransition = { ScreenTransitions.popExitTransition() }
             ) {
                 SearchScreen()
+            }
+
+            composable(
+                route = Screen.Links.route,
+                enterTransition = { ScreenTransitions.enterTransition() },
+                exitTransition = { ScreenTransitions.exitTransition() },
+                popEnterTransition = { ScreenTransitions.popEnterTransition() },
+                popExitTransition = { ScreenTransitions.popExitTransition() }
+            ) {
+                LinksScreen(
+                    onBack = { navController.popBackStack() }
+                )
+            }
+
+            composable(
+                route = Screen.HowTos.route,
+                enterTransition = { ScreenTransitions.enterTransition() },
+                exitTransition = { ScreenTransitions.exitTransition() },
+                popEnterTransition = { ScreenTransitions.popEnterTransition() },
+                popExitTransition = { ScreenTransitions.popExitTransition() }
+            ) {
+                HowTosScreen(
+                    onBack = { navController.popBackStack() }
+                )
             }
 
             composable(

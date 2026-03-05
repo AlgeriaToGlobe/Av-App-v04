@@ -6,6 +6,8 @@ sealed class Screen(val route: String) {
     object Offers : Screen("offers")
     object Coupons : Screen("coupons")
     object Search : Screen("search")
+    object Links : Screen("links")
+    object HowTos : Screen("howtos")
     object SubCategories : Screen("subcategories/{categoryId}") {
         fun createRoute(categoryId: Int) = "subcategories/$categoryId"
     }
@@ -21,6 +23,8 @@ sealed class Screen(val route: String) {
                 "offers" -> Offers
                 "coupons" -> Coupons
                 "search" -> Search
+                "links" -> Links
+                "howtos" -> HowTos
                 else -> Home
             }
         }

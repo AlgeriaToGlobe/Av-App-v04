@@ -26,6 +26,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import android.os.Build
 import com.example.avappv02.data.MockData
 import com.example.avappv02.data.Template
 
@@ -34,6 +35,7 @@ import com.example.avappv02.data.Template
 fun SearchScreen() {
     var query by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
+    val showCustomCopiedNotification = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
     var showCopiedMessage by remember { mutableStateOf(false) }
     val clipboardManager = LocalClipboardManager.current
 
@@ -157,7 +159,9 @@ fun SearchScreen() {
                                 templateItem = templateItem,
                                 onCopy = {
                                     clipboardManager.setText(AnnotatedString(templateItem.template.content))
-                                    showCopiedMessage = true
+                                    if (showCustomCopiedNotification) {
+                                        showCopiedMessage = true
+                                    }
                                 }
                             )
                         }

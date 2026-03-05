@@ -33,6 +33,14 @@ fun TemplatesScreen(
     var showSnackbar by remember { mutableStateOf(false) }
     var copiedTemplateName by remember { mutableStateOf("") }
 
+    // Auto-dismiss notification after 3 seconds
+    LaunchedEffect(showSnackbar) {
+        if (showSnackbar) {
+            kotlinx.coroutines.delay(3000)
+            showSnackbar = false
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -73,7 +81,7 @@ fun TemplatesScreen(
                     start = 16.dp,
                     end = 16.dp,
                     top = 16.dp,
-                    bottom = 100.dp  // Increased bottom padding to avoid nav bar overlap
+                    bottom = 96.dp
                 ),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -145,10 +153,10 @@ fun TemplateCard(
     // Always show the expand button for any template with more than 3 lines
     val needsExpand = template.content.count { it == '\n' } > 3
 
-    Card(
+    ElevatedCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

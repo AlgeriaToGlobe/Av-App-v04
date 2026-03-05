@@ -39,6 +39,14 @@ fun SearchScreen() {
     var showCopiedMessage by remember { mutableStateOf(false) }
     val clipboardManager = LocalClipboardManager.current
 
+    // Auto-dismiss notification after 3 seconds
+    LaunchedEffect(showCopiedMessage) {
+        if (showCopiedMessage) {
+            kotlinx.coroutines.delay(3000)
+            showCopiedMessage = false
+        }
+    }
+
     // Get all templates from all categories and subcategories
     val allTemplates = remember {
         MockData.allCategories.flatMap { category ->
@@ -135,7 +143,7 @@ fun SearchScreen() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(bottom = 80.dp) // Account for bottom nav
+                    .padding(bottom = 96.dp)
             ) {
                 if (query.isEmpty()) {
                     EmptySearchState()

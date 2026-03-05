@@ -48,7 +48,7 @@ fun HowTosScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
-            contentPadding = PaddingValues(16.dp, 8.dp, 16.dp, 100.dp),
+            contentPadding = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(howTos) { howTo ->

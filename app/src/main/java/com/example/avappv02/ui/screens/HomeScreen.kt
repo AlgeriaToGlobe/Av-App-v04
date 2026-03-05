@@ -111,7 +111,7 @@ fun HomeScreen(
             }
 
             LazyColumn(
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 100.dp),
+                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(categories) { category ->
@@ -124,7 +124,7 @@ fun HomeScreen(
         } else {
             // Show main menu
             LazyColumn(
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 100.dp),
+                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(menuSections) { section ->
@@ -150,9 +150,8 @@ fun MenuSectionCard(
     onClick: () -> Unit
 ) {
     ElevatedCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 2.dp,
@@ -234,9 +233,8 @@ fun CategoryCard(
     onClick: (Int) -> Unit
 ) {
     ElevatedCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick(category.id) },
+        onClick = { onClick(category.id) },
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.elevatedCardElevation(
             defaultElevation = 2.dp,
@@ -248,7 +246,7 @@ fun CategoryCard(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically

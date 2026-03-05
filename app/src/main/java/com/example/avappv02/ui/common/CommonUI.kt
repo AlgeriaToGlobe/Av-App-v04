@@ -24,17 +24,6 @@ fun LoadingSpinner(
     modifier: Modifier = Modifier,
     message: String? = null
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "loading animation")
-    val rotation by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "rotation"
-    )
-
     Column(
         modifier = modifier
             .fillMaxSize(),

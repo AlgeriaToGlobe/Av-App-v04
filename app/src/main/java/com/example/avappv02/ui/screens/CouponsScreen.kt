@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -39,7 +38,6 @@ fun CouponsScreen(
     var showCopiedMessage by remember { mutableStateOf(false) }
     var copiedCouponCode by remember { mutableStateOf("") }
     var selectedFilter by remember { mutableStateOf<CouponCategory?>(null) }
-    val isDarkTheme = !MaterialTheme.colorScheme.isLight()
     val scope = rememberCoroutineScope()
 
     // Group coupons by their category
@@ -115,14 +113,13 @@ fun CouponsScreen(
                 // Filter chips
                 ScrollableFilterChips(
                     selectedCategory = selectedFilter,
-                    onCategorySelected = { selectedFilter = it },
-                    isDarkTheme = isDarkTheme
+                    onCategorySelected = { selectedFilter = it }
                 )
             }
 
             // Coupons list
             LazyColumn(
-                contentPadding = PaddingValues(16.dp, 8.dp, 16.dp, 100.dp), // Increased bottom padding
+                contentPadding = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(filteredCoupons) { coupon ->
@@ -144,8 +141,7 @@ fun CouponsScreen(
                                     showCopiedMessage = true
                                 }
                             }
-                        },
-                        isDarkTheme = isDarkTheme
+                        }
                     )
                 }
             }
@@ -159,12 +155,12 @@ fun CouponsScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .navigationBarsPadding()
-                .padding(bottom = 80.dp, start = 16.dp, end = 16.dp) // Added extra padding to avoid overlap
+                .padding(bottom = 96.dp, start = 16.dp, end = 16.dp)
         ) {
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
-                color = if (isDarkTheme) Color(0xFF303030) else MaterialTheme.colorScheme.surfaceVariant,
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shadowElevation = 4.dp
             ) {
                 Row(
@@ -186,7 +182,7 @@ fun CouponsScreen(
                         Text(
                             text = "Code copied: $copiedCouponCode",
                             style = MaterialTheme.typography.bodyMedium,
-                            color = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
 
@@ -202,8 +198,7 @@ fun CouponsScreen(
 @Composable
 fun ScrollableFilterChips(
     selectedCategory: CouponCategory?,
-    onCategorySelected: (CouponCategory?) -> Unit,
-    isDarkTheme: Boolean
+    onCategorySelected: (CouponCategory?) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -224,9 +219,9 @@ fun ScrollableFilterChips(
             },
             shape = RoundedCornerShape(20.dp),
             colors = FilterChipDefaults.filterChipColors(
-                containerColor = if (isDarkTheme) Color(0xFF202020) else Color(0xFFEEEEEE),
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
                 selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                labelColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
+                labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             border = null
@@ -246,9 +241,9 @@ fun ScrollableFilterChips(
                 },
                 shape = RoundedCornerShape(20.dp),
                 colors = FilterChipDefaults.filterChipColors(
-                    containerColor = if (isDarkTheme) Color(0xFF202020) else Color(0xFFEEEEEE),
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
                     selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                    labelColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
+                    labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 border = null
@@ -261,11 +256,9 @@ fun ScrollableFilterChips(
 fun CouponCard(
     coupon: Coupon,
     category: CouponCategory,
-    onCopyClicked: () -> Unit,
-    isDarkTheme: Boolean
+    onCopyClicked: () -> Unit
 ) {
     val clipboardManager = LocalClipboardManager.current
-    val cardBgColor = if (isDarkTheme) Color(0xFF121212) else Color.White
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -287,10 +280,10 @@ fun CouponCard(
         }
 
         // Main card
-        Surface(
+        ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
-            color = cardBgColor
+            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -300,7 +293,7 @@ fun CouponCard(
                 Text(
                     text = coupon.title,
                     style = MaterialTheme.typography.titleMedium,
-                    color = if (isDarkTheme) Color.White else Color.Black
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 // Coupon code box with gradient background
@@ -364,10 +357,7 @@ fun CouponCard(
                 Text(
                     text = coupon.details,
                     style = MaterialTheme.typography.bodySmall,
-                    color = if (isDarkTheme)
-                        Color.White.copy(alpha = 0.7f)
-                    else
-                        Color.Black.copy(alpha = 0.7f)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -394,12 +384,6 @@ fun getCategoryGradient(category: CouponCategory): List<Color> {
         CouponCategory.AGENCY -> listOf(Color(0xFF1976D2), Color(0xFF64B5F6))           // Blue
         CouponCategory.STANDARD -> listOf(Color(0xFF303F9F), Color(0xFF7986CB))         // Indigo
     }
-}
-
-// Helper extension function to detect if ColorScheme is light
-@Composable
-fun ColorScheme.isLight(): Boolean {
-    return this.background.luminance() > 0.5f
 }
 
 enum class CouponCategory(val displayName: String) {

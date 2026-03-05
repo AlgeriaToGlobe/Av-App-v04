@@ -82,7 +82,7 @@ fun SubCategoriesScreen(
                     start = 16.dp,
                     end = 16.dp,
                     top = 16.dp,
-                    bottom = 80.dp // Add extra padding at bottom
+                    bottom = 96.dp
                 ),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {

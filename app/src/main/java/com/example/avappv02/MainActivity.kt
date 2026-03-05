@@ -1,6 +1,7 @@
 package com.example.avappv02
 
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,9 +32,29 @@ window.navigationBarColor = android.graphics.Color.WHITE
 } else {
 window.navigationBarColor = android.graphics.Color.parseColor("#121212")
 }
+
+        // Request the highest available refresh rate (120Hz on supported devices)
+        enableHighRefreshRate()
         setContent {
             AVAPPV02Theme {
                 AppContent()
+            }
+        }
+    }
+
+    private fun enableHighRefreshRate() {
+        val display = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            display
+        } else {
+            @Suppress("DEPRECATION")
+            windowManager.defaultDisplay
+        }
+        display?.supportedModes?.let { modes ->
+            val highestRefreshRateMode = modes.maxByOrNull { it.refreshRate }
+            highestRefreshRateMode?.let { mode ->
+                val params = window.attributes
+                params.preferredDisplayModeId = mode.modeId
+                window.attributes = params
             }
         }
     }

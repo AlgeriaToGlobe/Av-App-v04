@@ -1,11 +1,9 @@
 package com.example.avappv02.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -80,37 +78,33 @@ fun HomeScreen(
 
     var showKnowledgeBase by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding()
-            .padding(top = 24.dp)
-    ) {
-        Text(
-            text = "Support Menu",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-        )
-
-        if (showKnowledgeBase) {
-            // Show knowledge base categories
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(onClick = { showKnowledgeBase = false }) {
-                    Icon(Icons.Default.ArrowBack, "Back to menu")
-                }
-                Text(
-                    text = "Knowledge Base",
-                    style = MaterialTheme.typography.titleLarge
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = if (showKnowledgeBase) "Knowledge Base" else "Support Menu",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                navigationIcon = {
+                    if (showKnowledgeBase) {
+                        IconButton(onClick = { showKnowledgeBase = false }) {
+                            Icon(Icons.Default.ArrowBack, "Back to menu")
+                        }
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
-            }
-
+            )
+        }
+    ) { padding ->
+        if (showKnowledgeBase) {
             LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -122,8 +116,10 @@ fun HomeScreen(
                 }
             }
         } else {
-            // Show main menu
             LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {

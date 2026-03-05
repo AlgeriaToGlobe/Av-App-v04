@@ -24,7 +24,7 @@ fun AppNavHost(
 ) {
     MainScaffold(
         navController = navController
-    ) { paddingValues ->
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()

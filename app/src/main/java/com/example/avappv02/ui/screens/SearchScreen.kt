@@ -76,18 +76,30 @@ fun SearchScreen() {
         }
     }
 
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        "Search",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            )
+        }
+    ) { padding ->
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .padding(padding)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .padding(top = 16.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-            // Search bar with improved visual style
+            // Search bar
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -216,6 +228,7 @@ fun SearchScreen() {
                 }
             }
         }
+    }
     }
 }
 

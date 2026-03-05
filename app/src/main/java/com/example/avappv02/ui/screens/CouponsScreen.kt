@@ -28,6 +28,7 @@ import com.example.avappv02.data.MockData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CouponsScreen(
     modifier: Modifier = Modifier
@@ -77,117 +78,121 @@ fun CouponsScreen(
         }
     }
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Available Coupons",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            )
+        }
+    ) { padding ->
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(padding)
         ) {
-            // Header with proper spacing
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .statusBarsPadding()
-                    .padding(horizontal = 16.dp)
+                modifier = Modifier.fillMaxSize()
             ) {
-                Spacer(modifier = Modifier.height(16.dp))
+                // Filter section
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    Text(
+                        text = "Filter by category",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                    )
 
-                Text(
-                    text = "Available Coupons",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(
-                    text = "Filter by category",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // Filter chips
-                ScrollableFilterChips(
-                    selectedCategory = selectedFilter,
-                    onCategorySelected = { selectedFilter = it }
-                )
-            }
-
-            // Coupons list
-            LazyColumn(
-                contentPadding = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 96.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(filteredCoupons) { coupon ->
-                    val category = groupedCoupons.entries.find { it.value.contains(coupon) }?.key
-                        ?: CouponCategory.STANDARD
-                    CouponCard(
-                        coupon = coupon,
-                        category = category,
-                        onCopyClicked = {
-                            if (showCustomCopiedNotification) {
-                                copiedCouponCode = coupon.code
-                                if (showCopiedMessage) {
-                                    showCopiedMessage = false
-                                    scope.launch {
-                                        delay(100)
-                                        showCopiedMessage = true
-                                    }
-                                } else {
-                                    showCopiedMessage = true
-                                }
-                            }
-                        }
+                    ScrollableFilterChips(
+                        selectedCategory = selectedFilter,
+                        onCategorySelected = { selectedFilter = it }
                     )
                 }
-            }
-        }
 
-        // Copied notification - positioned above navigation bar with proper padding
-        AnimatedVisibility(
-            visible = showCopiedMessage,
-            enter = fadeIn() + slideInVertically(initialOffsetY = { it }),
-            exit = fadeOut() + slideOutVertically(targetOffsetY = { it }),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .navigationBarsPadding()
-                .padding(bottom = 96.dp, start = 16.dp, end = 16.dp)
-        ) {
-            Surface(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant,
-                shadowElevation = 4.dp
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                // Coupons list
+                LazyColumn(
+                    contentPadding = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 96.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Text(
-                            text = "Code copied: $copiedCouponCode",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface
+                    items(filteredCoupons) { coupon ->
+                        val category = groupedCoupons.entries.find { it.value.contains(coupon) }?.key
+                            ?: CouponCategory.STANDARD
+                        CouponCard(
+                            coupon = coupon,
+                            category = category,
+                            onCopyClicked = {
+                                if (showCustomCopiedNotification) {
+                                    copiedCouponCode = coupon.code
+                                    if (showCopiedMessage) {
+                                        showCopiedMessage = false
+                                        scope.launch {
+                                            delay(100)
+                                            showCopiedMessage = true
+                                        }
+                                    } else {
+                                        showCopiedMessage = true
+                                    }
+                                }
+                            }
                         )
                     }
+                }
+            }
 
-                    TextButton(onClick = { showCopiedMessage = false }) {
-                        Text("Dismiss", color = MaterialTheme.colorScheme.primary)
+            // Copied notification
+            AnimatedVisibility(
+                visible = showCopiedMessage,
+                enter = fadeIn() + slideInVertically(initialOffsetY = { it }),
+                exit = fadeOut() + slideOutVertically(targetOffsetY = { it }),
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding()
+                    .padding(bottom = 96.dp, start = 16.dp, end = 16.dp)
+            ) {
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    shadowElevation = 4.dp
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = "Code copied: $copiedCouponCode",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        TextButton(onClick = { showCopiedMessage = false }) {
+                            Text("Dismiss", color = MaterialTheme.colorScheme.primary)
+                        }
                     }
                 }
             }

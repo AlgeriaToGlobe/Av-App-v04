@@ -32,9 +32,14 @@ fun OffersScreen(
 
     Scaffold(
         topBar = {
-            LargeTopAppBar(
-                title = { Text("Available Plans") },
-                colors = TopAppBarDefaults.largeTopAppBarColors(
+            TopAppBar(
+                title = {
+                    Text(
+                        "Available Plans",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
             )

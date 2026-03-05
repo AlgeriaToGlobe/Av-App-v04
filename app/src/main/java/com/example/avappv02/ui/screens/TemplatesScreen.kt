@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import android.os.Build
 import com.example.avappv02.data.Template
 import com.example.avappv02.data.MockData
 
@@ -28,6 +29,7 @@ fun TemplatesScreen(
     val category = MockData.allCategories.find { it.id == catId }
     val subCategory = category?.subCategories?.find { it.id == subCatId }
     val templates = subCategory?.templates ?: emptyList()
+    val showCustomCopiedNotification = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
     var showSnackbar by remember { mutableStateOf(false) }
     var copiedTemplateName by remember { mutableStateOf("") }
 
@@ -79,8 +81,10 @@ fun TemplatesScreen(
                     TemplateCard(
                         template = template,
                         onCopied = {
-                            copiedTemplateName = template.title
-                            showSnackbar = true
+                            if (showCustomCopiedNotification) {
+                                copiedTemplateName = template.title
+                                showSnackbar = true
+                            }
                         }
                     )
                 }

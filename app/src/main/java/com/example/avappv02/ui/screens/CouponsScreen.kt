@@ -2,9 +2,11 @@ package com.example.avappv02.ui.screens
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -21,6 +23,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import android.os.Build
 import com.example.avappv02.data.Coupon
 import com.example.avappv02.data.MockData
 import kotlinx.coroutines.delay
@@ -31,6 +34,8 @@ fun CouponsScreen(
     modifier: Modifier = Modifier
 ) {
     val coupons = MockData.coupons
+    // Android 13+ shows its own clipboard notification, so suppress ours to avoid overlap
+    val showCustomCopiedNotification = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
     var showCopiedMessage by remember { mutableStateOf(false) }
     var copiedCouponCode by remember { mutableStateOf("") }
     var selectedFilter by remember { mutableStateOf<CouponCategory?>(null) }
@@ -127,16 +132,17 @@ fun CouponsScreen(
                         coupon = coupon,
                         category = category,
                         onCopyClicked = {
-                            copiedCouponCode = coupon.code
-                            // Auto-hide any previous notification
-                            if (showCopiedMessage) {
-                                showCopiedMessage = false
-                                scope.launch {
-                                    delay(100) // Small delay to ensure animation completes
+                            if (showCustomCopiedNotification) {
+                                copiedCouponCode = coupon.code
+                                if (showCopiedMessage) {
+                                    showCopiedMessage = false
+                                    scope.launch {
+                                        delay(100)
+                                        showCopiedMessage = true
+                                    }
+                                } else {
                                     showCopiedMessage = true
                                 }
-                            } else {
-                                showCopiedMessage = true
                             }
                         },
                         isDarkTheme = isDarkTheme
@@ -202,9 +208,30 @@ fun ScrollableFilterChips(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
             .padding(bottom = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        // "All" chip
+        FilterChip(
+            selected = selectedCategory == null,
+            onClick = { onCategorySelected(null) },
+            label = {
+                Text(
+                    text = "All",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            },
+            shape = RoundedCornerShape(20.dp),
+            colors = FilterChipDefaults.filterChipColors(
+                containerColor = if (isDarkTheme) Color(0xFF202020) else Color(0xFFEEEEEE),
+                selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                labelColor = if (isDarkTheme) Color.White else MaterialTheme.colorScheme.onSurface,
+                selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            border = null
+        )
+
         for (category in CouponCategory.values()) {
             FilterChip(
                 selected = selectedCategory == category,

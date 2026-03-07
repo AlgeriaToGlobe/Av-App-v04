@@ -25,7 +25,7 @@ object MockData {
                         Template(
                             title = "Service Introduction Video",
                             content = """To get an idea of how our service works, please check out this video:
-    |https://youtu.be/_VEJsL3XpLI
+    |https://youtu.be/9aY4qDYEV0o?si=fb0cM-RrsnIGbsax
     """.trimMargin()
                         ),
                         Template(
@@ -86,15 +86,14 @@ object MockData {
                         ),
                         Template(
                             title = "Free Trial and Billing",
-                            content = """We only charge you after your 5-day free trial period. 
-    |You can choose to cancel during the trial period, and we won't charge you.
+                            content = """We only charge you after your 5-day free trial period.
+    |You can choose to cancel during the trial period & we won't charge you.
     """.trimMargin()
                         ),
                         Template(
                             title = "Whitelist and Unfollow Policy",
-                            content = """We don't unfollow your current followings. We only unfollow those we specifically follow on your account. 
-    |Your current followings will be added to a whitelist. 
-    |You can always add more to that whitelist as we progress with your account growth.
+                            content = """We don't unfollow your current followings. We only unfollow who we specifically follow on your account.
+    |Your current following will be added to a whitelist. You can always add more to that whitelist as we progress with your account growth.
     """.trimMargin()
                         ),
                         Template(
@@ -115,8 +114,14 @@ object MockData {
                         ),
                         Template(
                             title = "Payment Confirmation",
-                            content = """Please note that our payment processor may take up to 12 hours to confirm the payment. 
+                            content = """Please note that our payment processor may take up to 12 hours to confirm the payment.
     |If you do not gain access within 12 hours, please let me know so I can assist you further.
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Onboarding Process Video",
+                            content = """To get more information about our onboarding process, please watch this video:
+    |https://www.youtube.com/watch?v=j1zPal2VfxM
     """.trimMargin()
                         ),
                         Template(
@@ -187,9 +192,9 @@ object MockData {
                     templates = listOf(
                         Template(
                             title = "Plans and Pricing",
-                            content = """We currently offer two different plans. 
-    |For more information about our plans and pricing, please visit: 
-    |https://ascendviral.com/followers/
+                            content = """We currently offer two different plans.
+    |For more information about our plans and pricing, please visit:
+    |https://ascendviral.com/pricing/
     """.trimMargin()
                         ),
                         Template(
@@ -370,9 +375,9 @@ object MockData {
                     templates = listOf(
                         Template(
                             title = "Plans and Pricing Information",
-                            content = """We currently offer two different plans. 
-    |For more information about our plans and pricing, please visit: 
-    |https://ascendviral.com/followers/
+                            content = """We currently offer two different plans.
+    |For more information about our plans and pricing, please visit:
+    |https://ascendviral.com/pricing/
     """.trimMargin()
                         ),
                         Template(
@@ -563,8 +568,23 @@ object MockData {
                         ),
                         Template(
                             title = "Growth Assistant Unavailable",
-                            content = """I apologize, but it seems that your current growth assistant is not available online at the moment. 
+                            content = """I apologize, but it seems that your current growth assistant is not available online at the moment.
     |I've left a note for them, and they'll get back to you as soon as possible!
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Consulting Growth Assistant for Updates",
+                            content = """Hi there, I don't have your specific information at the moment, so I can't provide a detailed comment on why your growth is at its current point.
+    |However, I can reach out to your growth assistant and discuss this matter further.
+    |Would it be alright if I send you an email with more information after I consult with them?
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Growth Influenced by Many Factors",
+                            content = """Growth is influenced by many different factors, and it's not always the same for everyone.
+    |Things like strategy, consistency, niche, and external conditions all play a role in how results develop.
+    |If you'd like more detailed guidance, your assistant can provide deeper insights and help you understand what might work best for your situation.
+    |Make sure to reach out to them through the dashboard.
     """.trimMargin()
                         ),
                         Template(
@@ -576,7 +596,7 @@ object MockData {
                         ),
                         Template(
                             title = "Account Activation Notification",
-                            content = """I notify your growth assistant to begin working on your account as soon as possible.
+                            content = """The assistant will start working on your account as soon as possible.
     """.trimMargin()
                         ),
                         Template(
@@ -609,7 +629,7 @@ object MockData {
                 ),
                 SubCategory(
                     id = 202,
-                    name = "Estimation and guarantee of growth",
+                    name = "Estimation and growth guarantee",
                     templates = listOf(
                         Template(
                             title = "Monthly Follower Growth Estimate",
@@ -852,8 +872,15 @@ object MockData {
                         ),
                         Template(
                             title = "Compatibility with Niches",
-                            content = """Our service is designed to work with almost all niches and accounts. 
+                            content = """Our service is designed to work with almost all niches and accounts.
     |As long as your target audience is on Instagram, we can assist you in growing your account.
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Suggesting Fresh Target Sources",
+                            content = """If you have any fresh sources or accounts in mind that we can target, feel free to send them over!
+    |Just a reminder, it's best to avoid really big accounts (200k+ followers), since they usually have a lot of bots.
+    |The sweet spot is usually active accounts in your niche with solid engagement and somewhere between 20k–100k followers.
     """.trimMargin()
                         ),
                         Template(
@@ -968,11 +995,18 @@ object MockData {
                     templates = listOf(
                         Template(
                             title = "Hashtag Strategy for Best Results",
-                            content = """For the hashtags, you can follow the strategy below to get the best results possible:
+                            content = """For the hashtags, you can follow the strategy below, it will get you the best results possible:
     |
-    |1. Use 2-3 hashtags where the average post likes are lower than your average (easier to rank).
-    |2. Use 2-3 hashtags where the average post likes are the same as your average (medium difficulty to rank).
-    |3. Use 2-3 hashtags where the average post likes are a little higher than your average (harder to rank but will bring more traffic).
+    |1-2 hashtags where their average post likes are lower than your average (because it's easy to rank)
+    |1-2 hashtags where their average post likes are the same as your average (medium difficulty to rank)
+    |1-2 hashtags where their average post likes are a little higher than your average (hard to rank but will bring traffic)
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Instagram Hashtag Limit",
+                            content = """Instagram currently limits posts to five hashtags.
+    |To get the best results, it's important to choose hashtags that also work as keywords directly related to the content you're sharing.
+    |This way, your posts are more likely to reach the right audience and perform better.
     """.trimMargin()
                         )
                     )
@@ -1018,6 +1052,12 @@ object MockData {
                             content = """To fill out a new growth strategy form, please visit:
     |
     |https://assistant.ascendviral.com/onboarding
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Onboarding Process Video",
+                            content = """To get more information about our onboarding process, please watch this video:
+    |https://www.youtube.com/watch?v=j1zPal2VfxM
     """.trimMargin()
                         )
                     )
@@ -1083,8 +1123,15 @@ object MockData {
                         ),
                         Template(
                             title = "Instagram's Bot Removal Process",
-                            content = """The good news is that Instagram takes regular actions to remove bots from the platform. 
+                            content = """The good news is that Instagram takes regular actions to remove bots from the platform.
     |Over time, these ghost followers will likely be identified and removed from your account by Instagram's automated systems.
+    """.trimMargin()
+                        ),
+                        Template(
+                            title = "Verifying Growth Service Legitimacy",
+                            content = """To make sure if a growth service you're using is fake or legit, please check out this guide:
+    |
+    |https://ascendviral.com/grades/
     """.trimMargin()
                         )
                     )
@@ -1181,7 +1228,7 @@ object MockData {
                 ),
                 SubCategory(
                     id = 302,
-                    name = "Using hashtags and other tactics to improve growth. (Likes or comments)",
+                    name = "Likes & comments",
                     templates = listOf(
                         Template(
                             title = "Effectiveness of Follow Actions",
@@ -1492,8 +1539,14 @@ object MockData {
                     templates = listOf(
                         Template(
                             title = "Members Area",
-                            content = """Access your Members Area here:  
+                            content = """Access your Members Area here:
     |https://ascendviral.com/members-area/""".trimMargin()
+                        ),
+
+                        Template(
+                            title = "WP Login",
+                            content = """Access the WordPress login here:
+    |https://ascendviral.com/wp-login.php""".trimMargin()
                         ),
 
                         Template(
@@ -1716,13 +1769,21 @@ object MockData {
                 ),
                 SubCategory(
                     id = 410,
-                    name = "Chat support",
+                    name = "Management / Chat Support",
                     templates = listOf(
                         Template(
+                            title = "Escalated to Management",
+                            content = """Your issue has been escalated to our management team. They'll be reaching out to you soon with further assistance.""".trimMargin()
+                        ),
+                        Template(
+                            title = "Direct Escalation Contact",
+                            content = """If you'd like to escalate this directly, you can reach out to gabby@ascendviral.com and she will take it from there.""".trimMargin()
+                        ),
+                        Template(
                             title = "Client Communication & Messaging System",
-                            content = """Our communication with clients primarily occurs through our messaging system on the dashboard.  
-    |You can easily interact with your personal growth assistant by visiting:  
-    |https://assistant.ascendviral.com/messages  
+                            content = """Our communication with clients primarily occurs through our messaging system on the dashboard.
+    |You can easily interact with your personal growth assistant by visiting:
+    |https://assistant.ascendviral.com/messages
     |They will be able to assist you promptly and address any questions or issues you may have.""".trimMargin()
                         )
                     )
@@ -2031,8 +2092,12 @@ object MockData {
 
                         Template(
                             title = "Request Forwarded",
-                            content = """I have forwarded your request to the appropriate team,  
+                            content = """I have forwarded your request to the appropriate team,
     |and we will respond to you within the next 24-48 hours.""".trimMargin()
+                        ),
+                        Template(
+                            title = "Request for Screenshots",
+                            content = """Could you please send a few screenshots of what you're seeing right now?""".trimMargin()
                         )
                     )
                 ),
@@ -2199,19 +2264,29 @@ object MockData {
                     templates = listOf(
                         Template(
                             title = "Reseller Service & Pricing",
-                            content = """Right now, we're offering a reseller service.  
-    |We offer a discount of $135 per month per Turbo account (opposed to our normal price of $199 per month).  
-    |We no longer offer a white label since we recently upgraded our analytics software.""".trimMargin()
+                            content = """We're offering a reseller service. We offer a discount of ${'$'}135 per month per Turbo account (opposed to our normal price of ${'$'}199 per month).
+    |To join our agency program, just start with two Turbo subscriptions, you can use my ${'$'}20 off coupon [coupon] for that.
+    |When you're ready to add more accounts, let us know how many and we'll share our agency discount code.""".trimMargin()
                         ),
 
                         Template(
                             title = "Joining Our Agency Program",
-                            content = """If you'd like to join our agency program,  
-    |the first step is to purchase an initial Turbo subscription.  
-    |You can use my $20 off coupon code [coupon] to get the initial subscription at a discounted price.  
+                            content = """If you'd like to join our agency program, the first step is to purchase two Turbo subscriptions.
+    |You can use my ${'$'}20 off coupon code [coupon] to get the initial subscription at a discounted price.
     |
-    |When you're ready to add more accounts, just let us know how many you'd like to add,  
+    |When you're ready to add more accounts, just let us know how many you'd like to add,
     |and we'd be happy to provide you with our agency discount code.""".trimMargin()
+                        )
+                    )
+                ),
+                SubCategory(
+                    id = 805,
+                    name = "Affiliate Program",
+                    templates = listOf(
+                        Template(
+                            title = "Affiliate Program Details",
+                            content = """Our affiliate program is simple. You earn 20% of the first month's payment for each client you refer.
+    |Once your commissions reach ${'$'}150, your earnings are automatically paid out at the end of the following month.""".trimMargin()
                         )
                     )
                 ),
@@ -2288,32 +2363,8 @@ object MockData {
                         ),
 
                         Template(
-                            title = "Free Instagram Course & Growth Guide",
-                            content = """I would highly recommend checking out our free Instagram course available at:  
-    |https://ascendviral.com/instagram-course/  
-    |
-    |It's a great resource to learn more about Instagram and its growth strategies.  
-    |
-    |If you're looking to dive deeper into Instagram growth,  
-    |I recommend reading our comprehensive guide called "Instagram Domination."  
-    |This guide covers everything you need to know about growing your Instagram presence effectively.  
-    |
-    |You can access it here: https://ascendviral.com/dominate/  
-    |
-    |Both the course and the guide will provide you with valuable insights and strategies  
-    |to enhance your Instagram growth.""".trimMargin()
-                        ),
-
-                        Template(
-                            title = "Ebook Update Guide",
-                            content = """Here's a detailed guide that'll help you get the latest version of the ebook:  
-    |https://www.ascendviral.com/ebook-update-tutorial/""".trimMargin()
-                        ),
-
-                        Template(
-                            title = "Check Update Guide",
-                            content = """Kindly check the update guide here:  
-    |https://www.ascendviral.com/ebook-update-tutorial/""".trimMargin()
+                            title = "Ebook Currently Unavailable",
+                            content = """The Ebook is currently unavailable because we're updating it. It will be back on the website as soon as it's ready.""".trimMargin()
                         )
                     )
                 )

@@ -14,10 +14,10 @@ object MockData {
                             title = "Service Overview",
                             content = """With our service, all you need to focus on is creating quality content for your followers, and we will handle the rest.
                 |Here's how Ascend Viral facilitates growth for your account:
-                |- We analyze profiles to find the perfect match based on the information you provide in a form. This includes your targets, hashtags, location, etc.
-                |- We engage with real accounts that have a genuine interest in your content.
-                |- As a result, you will gain engaged and excited new fans who will follow you back.
-                |- We unfollow these users after 3-7 days, unless you choose to keep some of them by adding them to what we call "the whitelist."
+                |1- We analyze profiles to find the perfect match based on the information you provide in a form. This includes your targets, hashtags, location, etc.
+                |2- We engage with real accounts that have a genuine interest in your content.
+                |3- As a result, you will gain engaged and excited new fans who will follow you back.
+                |4- We unfollow these users after 3-7 days, unless you choose to keep some of them by adding them to what we call "the whitelist."
                 |
                 |Your current following will also be added to the whitelist, ensuring that we do not interact with them. This is known as the follow/unfollow method.
                 """.trimMargin()
@@ -25,7 +25,7 @@ object MockData {
                         Template(
                             title = "Service Introduction Video",
                             content = """To get an idea of how our service works, please check out this video:
-    |https://youtu.be/9aY4qDYEV0o?si=fb0cM-RrsnIGbsax
+    |https://youtu.be/9aY4qDYEV0o
     """.trimMargin()
                         ),
                         Template(

@@ -1241,19 +1241,6 @@ object MockData {
     |when targeted towards the right audience for your account. 
     |By engaging with the right audience through follows, we can help you generate meaningful traffic, momentum, and potential sales.
     """.trimMargin()
-                        ),
-                        Template(
-                            title = "Hashtag Strategy for Optimal Growth",
-                            content = """Hashtags play a significant role. Conduct thorough hashtag research and identify smaller hashtags that align with your content. 
-    |Analyze popular posts within those hashtags, considering factors such as likes, comments, and content type. 
-    |Aim to use a mix of hashtags:
-    |
-    |- 10 hashtags with an average post likes smaller than your average (easier to rank)
-    |- 10 hashtags with an average post likes similar to your average (medium difficulty to rank)
-    |- 10 hashtags with an average post likes slightly higher than your average (challenging to rank but will bring more traffic)
-    |
-    |Mix and match your hashtags for each post and track when you make it to the top posts to reuse those hashtags in the future.
-    """.trimMargin()
                         )
                     )
                 )

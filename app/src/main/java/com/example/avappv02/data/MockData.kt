@@ -2057,26 +2057,6 @@ object MockData {
                     name = "Troubleshooting bugs",
                     templates = listOf(
                         Template(
-                            title = "Account Visibility in Dashboard",
-                            content = """Sometimes it may take up to 24 hours for accounts to appear in the dashboard,  
-    |especially during weekends when the processing time may be longer.  
-    |Once your account shows up in the dashboard, your growth assistant  
-    |will reach out to you through our messaging platform at:  
-    |https://assistant.ascendviral.com/messages""".trimMargin()
-                        ),
-
-                        Template(
-                            title = "Acknowledging Feedback",
-                            content = """Thank you for providing your feedback.  
-    |We highly value it, and our team will investigate the matter thoroughly.""".trimMargin()
-                        ),
-
-                        Template(
-                            title = "Request Forwarded",
-                            content = """I have forwarded your request to the appropriate team,
-    |and we will respond to you within the next 24-48 hours.""".trimMargin()
-                        ),
-                        Template(
                             title = "Request for Screenshots",
                             content = """Could you please send a few screenshots of what you're seeing right now?""".trimMargin()
                         )

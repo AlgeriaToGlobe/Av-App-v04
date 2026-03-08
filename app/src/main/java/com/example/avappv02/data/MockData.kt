@@ -561,12 +561,6 @@ object MockData {
                     name = "Growth delay and what's next",
                     templates = listOf(
                         Template(
-                            title = "Onboarding and Growth Timeline",
-                            content = """Typically, the onboarding process involves 2-3 days of defining your target audience and completing the necessary steps. 
-    |This is followed by 2-3 days of growth before the paid plan officially begins.
-    """.trimMargin()
-                        ),
-                        Template(
                             title = "Growth Assistant Unavailable",
                             content = """I apologize, but it seems that your current growth assistant is not available online at the moment.
     |I've left a note for them, and they'll get back to you as soon as possible!

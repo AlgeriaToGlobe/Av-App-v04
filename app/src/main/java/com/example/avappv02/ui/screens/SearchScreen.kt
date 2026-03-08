@@ -62,7 +62,7 @@ fun SearchScreen() {
         }
     }
 
-    // Filter templates based on search query
+    // Filter and sort templates by relevance: title > category/subcategory name > content
     val filteredTemplates = remember(query) {
         if (query.isEmpty()) {
             emptyList()
@@ -72,6 +72,16 @@ fun SearchScreen() {
                         templateItem.template.content.contains(query, ignoreCase = true) ||
                         templateItem.categoryName.contains(query, ignoreCase = true) ||
                         templateItem.subCategoryName.contains(query, ignoreCase = true)
+            }.sortedByDescending { templateItem ->
+                when {
+                    // Highest priority: title contains the query
+                    templateItem.template.title.contains(query, ignoreCase = true) -> 3
+                    // Medium priority: category or subcategory name matches
+                    templateItem.categoryName.contains(query, ignoreCase = true) ||
+                        templateItem.subCategoryName.contains(query, ignoreCase = true) -> 2
+                    // Lowest priority: content contains the query
+                    else -> 1
+                }
             }
         }
     }

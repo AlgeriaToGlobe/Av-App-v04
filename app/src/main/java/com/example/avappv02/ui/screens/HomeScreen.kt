@@ -3,6 +3,9 @@ package com.example.avappv02.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -16,6 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.avappv02.data.Category
@@ -109,7 +114,7 @@ fun HomeScreen(
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(categories) { category ->
+                items(categories, key = { it.id }) { category ->
                     CategoryCard(
                         category = category,
                         onClick = onCategoryClick
@@ -117,24 +122,60 @@ fun HomeScreen(
                 }
             }
         } else {
+            // Support Menu with visual grid layout
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(menuSections) { section ->
-                    MenuSectionCard(
-                        section = section,
-                        onClick = {
-                            if (section.route == "knowledge_base") {
-                                showKnowledgeBase = true
-                            } else {
-                                onNavigate(section.route)
-                            }
-                        }
+                // Hero card for Knowledge Base (full width, prominent)
+                item {
+                    val kbSection = menuSections[0]
+                    HeroMenuCard(
+                        section = kbSection,
+                        onClick = { showKnowledgeBase = true }
                     )
+                }
+
+                // 2x2 grid for the other 4 sections
+                item {
+                    val gridSections = menuSections.drop(1)
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            GridMenuCard(
+                                section = gridSections[0],
+                                onClick = { onNavigate(gridSections[0].route) },
+                                modifier = Modifier.weight(1f)
+                            )
+                            GridMenuCard(
+                                section = gridSections[1],
+                                onClick = { onNavigate(gridSections[1].route) },
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            GridMenuCard(
+                                section = gridSections[2],
+                                onClick = { onNavigate(gridSections[2].route) },
+                                modifier = Modifier.weight(1f)
+                            )
+                            GridMenuCard(
+                                section = gridSections[3],
+                                onClick = { onNavigate(gridSections[3].route) },
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -142,44 +183,53 @@ fun HomeScreen(
 }
 
 @Composable
-fun MenuSectionCard(
+fun HeroMenuCard(
     section: MenuSection,
     onClick: () -> Unit
 ) {
     ElevatedCard(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(140.dp),
+        shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 2.dp,
-            pressedElevation = 4.dp
-        ),
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            defaultElevation = 4.dp,
+            pressedElevation = 8.dp
         )
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = section.gradientColors
+                    )
+                )
         ) {
-            Row(
-                modifier = Modifier.weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+            // Large decorative icon in background
+            Icon(
+                imageVector = section.icon,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(120.dp)
+                    .align(Alignment.CenterEnd)
+                    .offset(x = 16.dp, y = 16.dp),
+                tint = Color.White.copy(alpha = 0.15f)
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(44.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(
-                            brush = Brush.linearGradient(
-                                colors = section.gradientColors
-                            )
-                        )
+                        .background(Color.White.copy(alpha = 0.2f))
                 ) {
                     Icon(
                         imageVector = section.icon,
@@ -192,32 +242,86 @@ fun MenuSectionCard(
                 Column {
                     Text(
                         text = section.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = Color.White
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = section.description,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = Color.White.copy(alpha = 0.85f),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
             }
+        }
+    }
+}
 
-            Surface(
-                modifier = Modifier.size(36.dp),
-                shape = RoundedCornerShape(12.dp),
-                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+@Composable
+fun GridMenuCard(
+    section: MenuSection,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    ElevatedCard(
+        onClick = onClick,
+        modifier = modifier.height(140.dp),
+        shape = RoundedCornerShape(20.dp),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 3.dp,
+            pressedElevation = 6.dp
+        ),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(
+                        brush = Brush.linearGradient(
+                            colors = section.gradientColors
+                        )
+                    )
             ) {
                 Icon(
-                    Icons.Default.ChevronRight,
-                    contentDescription = "Open",
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(8.dp)
+                    imageVector = section.icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                    tint = Color.White
+                )
+            }
+
+            Column {
+                Text(
+                    text = section.title,
+                    style = MaterialTheme.typography.titleSmall.copy(
+                        fontWeight = FontWeight.SemiBold
+                    ),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = section.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    lineHeight = MaterialTheme.typography.bodySmall.lineHeight
                 )
             }
         }

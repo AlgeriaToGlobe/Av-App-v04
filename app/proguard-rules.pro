@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep data classes used by the app
+-keep class com.example.avappv02.data.** { *; }
+
+# Lottie
+-dontwarn com.airbnb.lottie.**
+-keep class com.airbnb.lottie.** { *; }
+
+# OpenCSV
+-dontwarn com.opencsv.**
+-keep class com.opencsv.** { *; }

@@ -2357,7 +2357,7 @@ object MockData {
             subCategories = listOf(
                 SubCategory(
                     id = 901,
-                    name = "Client Reviews & Testimonials",
+                    name = "Reviews and Testimonials",
                     templates = listOf(
                         Template(
                             title = "Website Testimonials",

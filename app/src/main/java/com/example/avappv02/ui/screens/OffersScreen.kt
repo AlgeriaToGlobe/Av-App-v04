@@ -26,7 +26,8 @@ import com.example.avappv02.data.MockData
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OffersScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBack: () -> Unit = {}
 ) {
     val offers = MockData.offers
 
@@ -39,6 +40,11 @@ fun OffersScreen(
                         style = MaterialTheme.typography.titleLarge
                     )
                 },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
@@ -50,7 +56,7 @@ fun OffersScreen(
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(offers) { offer ->
+            items(offers, key = { it.name }) { offer ->
                 OfferCard(offer)
             }
         }

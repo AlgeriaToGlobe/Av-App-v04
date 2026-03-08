@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.avappv02.navigation.BottomNavItem
+import com.example.avappv02.navigation.Screen
 import androidx.compose.animation.core.*
 
 @Composable
@@ -67,7 +68,7 @@ fun AppBottomNavigation(
                             if (!selected) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 navController.navigate(item.route) {
-                                    popUpTo(navController.graph.startDestinationId) {
+                                    popUpTo(Screen.Home.route) {
                                         saveState = true
                                     }
                                     launchSingleTop = true

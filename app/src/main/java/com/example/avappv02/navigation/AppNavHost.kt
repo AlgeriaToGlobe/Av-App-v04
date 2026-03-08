@@ -73,7 +73,9 @@ fun AppNavHost(
                 popEnterTransition = { ScreenTransitions.popEnterTransition() },
                 popExitTransition = { ScreenTransitions.popExitTransition() }
             ) {
-                OffersScreen()
+                OffersScreen(
+                    onBack = { navController.popBackStack() }
+                )
             }
 
             composable(
@@ -83,7 +85,9 @@ fun AppNavHost(
                 popEnterTransition = { ScreenTransitions.popEnterTransition() },
                 popExitTransition = { ScreenTransitions.popExitTransition() }
             ) {
-                CouponsScreen()
+                CouponsScreen(
+                    onBack = { navController.popBackStack() }
+                )
             }
 
             composable(
